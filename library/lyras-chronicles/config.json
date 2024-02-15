@@ -1,0 +1,15 @@
+{
+    "title": "Lyca's Chronicles",
+    "bookType": "manga",
+    "numVolumes": 5,
+    "fileExtension": ".png",
+    "japaneseOrder": true,
+
+    "volumeNames": [
+        null,
+        null,
+        null,
+        "The Training",
+        null
+    ]
+  }

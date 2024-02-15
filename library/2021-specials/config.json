@@ -1,0 +1,18 @@
+{
+    "title": "Monthly Specials 2021",
+    "bookType": "manga",
+    "numVolumes": 9,
+    "fileExtension": ".png",
+    "japaneseOrder": true,
+
+    "volumeNames": [
+        "January 2021",
+        "Alice's First Victim",
+        "Haruka's Wedding",
+        "The Luminous crystals of Light",
+        "Shining Stars",
+        "Endless Dungeon",
+        "Eris Betrayal",
+        "The Latex Maiden"
+    ]
+  }
