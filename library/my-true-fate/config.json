@@ -1,0 +1,24 @@
+{
+  "title": "My True Fate",
+  "bookType": "manga",
+  "numVolumes": 14,
+  "fileExtension": ".png",
+  "japaneseOrder": true,
+
+  "volumeNames": [
+      null,
+      "Homecoming",
+      "Rebirth",
+      "Prisoner of Lust",
+      "Lust for Power",
+      "Holy Corruption",
+      "The Arrival",
+      "Dark Origins",
+      "Revelation",
+      "Convergence",
+      "Clerys' Plan",
+      "All Praise Clerys",
+      "Clerys Paradise",
+      "Her Legacy"
+  ]
+}
