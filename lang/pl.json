@@ -22,6 +22,13 @@
       "illustation": "Ilustracja",
       "proof-reader": "Proof-reader"
     },
+    "chapterLabel": {
+      "chapter": "Chapter",
+      "volume": "Volume",
+      "episode": "Episode",
+      "part": "Part"
+    },
+
     "language": "Język",
     "volume": "Tom",
     "publication": "Publikacja"
@@ -29,7 +36,7 @@
 
   "readPage":
   {
-    "chapter": "Rozdział",
+    "chapter": "Część",
     "configMenu":
     {
       "pageWidthContainer": "Szerokość strony",

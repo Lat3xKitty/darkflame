@@ -703,7 +703,7 @@ function applyCookie() {
   pageWidthSlider.oninput();
 
   // If screen is in landscape mode, realistic options are true by default
-  const defaultRealisticOption = window.innerWidth > window.innerHeight;
+  const defaultRealisticOption = false;
 
   // Everytime, we set the inverse of what we want and then click on the button to get back to the state we want
   if (BOOKTYPE.bookFoldButton) {

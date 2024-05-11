@@ -8,17 +8,28 @@ body, select, option {
 }
 
 body.darkTheme {
-  --background-image: url("../img/background-imperfections.webp");
-  --background-gradient: linear-gradient(0deg, rgb(31 31 31) 0%, rgb(74 74 74) 100%);
+  --background-gradient: linear-gradient(0deg, rgb(34, 34, 34) 0%, rgb(73, 0, 0) 100%);
   --menu-background-color: rgb(30, 30, 30);
   --menu-text-color: white;
+  --menu-slider-color: lightgrey
+}
+
+body.manga.darkTheme {
+  --background-gradient: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%);
 }
 
 body.lightTheme {
-  --background-image: url("../img/background-imperfections.webp");
-  --background-gradient: linear-gradient(0deg, rgb(197 197 197) 0%, rgb(245 245 245) 100%);
+  --background-gradient: linear-gradient(0deg, rgb(197 197 197) 0%, rgb(255, 190, 190) 100%);
   --menu-background-color: rgb(220, 220, 220);
   --menu-text-color: black;
+  --menu-slider-color: darkgrey
+}
+
+/* Improve reading of stories while landscape on Light theme */
+@media screen and (orientation: landscape) {
+  body.manga.lightTheme {
+    --background-gradient: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%);
+  }
 }
 
 body {

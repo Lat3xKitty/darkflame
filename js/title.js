@@ -25,7 +25,12 @@ function displayBookData(bookData) {
       if (bookData.volumeNames && bookData.volumeNames[i - 1]) {
         volumeName = bookData.volumeNames[i - 1];
       }
-      p.innerHTML = 'Volume ' + i + (volumeName ? ': ' + volumeName : '');
+      var volumePrefix = LCONFIG.titlePage.chapterLabel['chapter'];
+      if (bookData.volumeKey && LCONFIG.titlePage.chapterLabel[bookData.volumeKey]) {
+        volumePrefix = LCONFIG.titlePage.chapterLabel[bookData.volumeKey];
+      }
+
+      p.innerHTML = volumePrefix + ' ' + i + (volumeName ? ': ' + volumeName : '');
     }
     cover.src = infoToImageURL(LIBRARY, TITLE, i, 1, bookData.fileExtension);
 
