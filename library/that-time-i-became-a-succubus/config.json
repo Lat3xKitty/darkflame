@@ -2,7 +2,7 @@
     "title": "That time I became a Succubus",
     "bookType": "manga",
     "numVolumes": 14,
-    "fileExtension": ".png",
+    "fileExtension": ".webp",
     "japaneseOrder": true,
 
     "volumeNames": [
@@ -20,5 +20,7 @@
         "The New Mistress",
         "Missed Your Big Sis?",
         "Yuuki"
-    ]
+    ],
+
+    "volumeKey": "part"
   }
