@@ -2,16 +2,18 @@
     "title": "Velzea's Invasion",
     "bookType": "manga",
     "numVolumes": 7,
-    "fileExtension": ".png",
+    "fileExtension": ".webp",
     "japaneseOrder": true,
 
     "volumeNames": [
-        "S1 E1",
-        "S1 E2",
-        "S2 E1",
-        "S2 E2",
-        "S2 E3",
-        "S2 E4",
-        "S2 E5 - Finale"
-    ]
+        "S1 E1 - The fall of the Luminous Crystals ",
+        "S1 E2 - Shining Starts of Fate",
+        "S2 E1 - The Monochromes",
+        "S2 E2 - Dark Future",
+        "S2 E3 - Hope Against Fate",
+        "S2 E4 - Turntables",
+        "S2 E5 - Ends and Beginnings (Finale)"
+    ],
+
+    "volumeKey": "none"
   }

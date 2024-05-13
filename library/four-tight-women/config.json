@@ -1,10 +1,18 @@
 {
     "title": "Four Tight Women",
     "bookType": "manga",
-    "numVolumes": 3,
-    "fileExtension": ".png",
+    "numVolumes": 7,
+    "fileExtension": ".webp",
     "japaneseOrder": true,
 
     "volumeNames": [
-    ]
+      "Stolen Property",
+      "Distractions",
+      "Unfair Experiment",
+      "Tight Dreams",
+      "The Best Valentine's Gift",
+      "Preview of TLITD ;)",
+      "Tough Luck"
+    ],
+    "volumeKey": "episode"
   }

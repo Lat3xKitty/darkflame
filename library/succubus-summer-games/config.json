@@ -1,0 +1,16 @@
+{
+    "title": "Succubus Summer Games",
+    "bookType": "manga",
+    "numVolumes": 5,
+    "fileExtension": ".webp",
+    "japaneseOrder": true,
+
+    "volumeNames": [
+        "\"Beach Episode\"",
+        "Game 1 - Vollyball",
+        "Game 2 - Possession",
+        "Game 3 - Fight of the Minions",
+        "A warm summer sunset"
+    ],
+    "volumeKey": "part"
+  }

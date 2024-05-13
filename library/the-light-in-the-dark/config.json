@@ -1,14 +1,17 @@
 {
     "title": "The Light in the Dark",
     "bookType": "manga",
-    "numVolumes": 4,
-    "fileExtension": ".png",
+    "numVolumes": 5,
+    "fileExtension": ".webp",
     "japaneseOrder": true,
 
     "volumeNames": [
         "Wonderful Pain",
         "In Someone else's Shoes",
         "The Light of Dawn",
-        "Cyber Persuasion"
-    ]
+        "Cyber Persuasion",
+        "A Change of Mind"
+    ],
+
+    "volumeKey": "episode"
   }

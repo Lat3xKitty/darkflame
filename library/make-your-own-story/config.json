@@ -1,0 +1,17 @@
+{
+    "title": "Make Your Own Story",
+    "bookType": "manga",
+    "numVolumes": 7,
+    "fileExtension": ".webp",
+    "japaneseOrder": true,
+
+    "volumeNames": [
+        "Ace of Spades",
+        "Queen of Darkness",
+        "Rock of Succubus",
+        "Latex Slave Infiltration",
+        "We'll become one",
+        "The Black Moon",
+        "Introvert Rubber Doll?"
+    ]
+  }

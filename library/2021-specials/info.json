@@ -1,14 +1,6 @@
 {
     "status": "completed",
     "published": "January 2021 to December 2021",
-    "genres": [],
     "language": "English",
-    "authors":
-      [
-        ["DarkFlame", "story"],
-        ["DarkFlame", "illustation"],
-        // proof reader
-      ],
-
-    "synopsis": "All the monthly specials for 2021. (This does not include Lyra's Chronicles as it's a wider series.)"
+    "synopsis": "All the monthly specials for 2021. (Some stories are missing where they have become part of a larger series.)"
 }

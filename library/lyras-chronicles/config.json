@@ -1,8 +1,8 @@
 {
-    "title": "Lyca's Chronicles",
+    "title": "Lyra's Chronicles",
     "bookType": "manga",
     "numVolumes": 5,
-    "fileExtension": ".png",
+    "fileExtension": ".webp",
     "japaneseOrder": true,
 
     "volumeNames": [
@@ -10,6 +10,7 @@
         null,
         null,
         "The Training",
-        null
-    ]
+        "Chari, the Succubus of Deception"
+    ],
+    "volumeKey": "part"
   }

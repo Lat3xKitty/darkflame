@@ -1,12 +1,25 @@
 {
     "title": "Monthly Specials 2022",
     "bookType": "manga",
-    "numVolumes": 2,
-    "fileExtension": ".png",
+    "numVolumes": 15,
+    "fileExtension": ".webp",
     "japaneseOrder": true,
 
     "volumeNames": [
+        "Blue Monday",
+        "Anonymouse#1 [Commission]",
+        "N-0002 [Commission]",
+        "quentin Ov. [Commission]",
+        "Valentine's Day 2022",
         "The Pleasure that Follows",
-        "The Masked Fate"
+        "The Eternal Mask",
+        "The book of Succubi - 10k Special",
+        "Easter 2022 - Bunny Girl Bar",
+        "Yuuki's Tightly Tied Toy",
+        "The Loop - Part 1",
+        "The Loop - Part 2",
+        "Halloween Special 2022",
+        "Jelly's Release",
+        "Haruka's Deal! [Ribimura Collab]"
     ]
   }

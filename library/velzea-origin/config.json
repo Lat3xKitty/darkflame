@@ -2,12 +2,14 @@
     "title": "Velzea's Origin",
     "bookType": "manga",
     "numVolumes": 3,
-    "fileExtension": ".png",
+    "fileExtension": ".webp",
     "japaneseOrder": true,
 
     "volumeNames": [
-        null,
-        null,
-        null
-    ]
+        "The beginning of the end",
+        "Metzea's Promise",
+        "A new era / Velzea's Rise"
+    ],
+
+    "volumeKey": "part"
   }

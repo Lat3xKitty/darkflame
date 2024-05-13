@@ -1,18 +1,16 @@
 {
-    "title": "2023 Specials/One Offs",
+    "title": "Monthly Specials 2023",
     "bookType": "manga",
-    "numVolumes": 10,
-    "fileExtension": ".png",
+    "numVolumes": 6,
+    "fileExtension": ".webp",
     "japaneseOrder": true,
 
     "volumeNames": [
-      "Bunny suit Alice",
-      "We'll become one",
-      "Latex Slave Invasion",
-      "The other me",
-      "The unexplored",
-      "Succufusion 2.0 - Pixiv 20k followers",
-      "The unexplored: conclusion",
-      "Cassy against the machines"
+      "The Other Me",
+      "The Unexplored - Part 1",
+      "Succufusion 2.0 - 20k Followers Special",
+      "The Unexplored: Conclusion",
+      "Halloween Tight Night Part 1",
+      "Cassy Against The Machines"
     ]
   }

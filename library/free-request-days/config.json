@@ -1,0 +1,14 @@
+{
+  "title": "Free Request Days",
+  "bookType": "manga",
+  "numVolumes": 4,
+  "fileExtension": ".webp",
+  "japaneseOrder": true,
+
+  "volumeNames": [
+    "March 2022",
+    "April 2022",
+    "January 2023",
+    "June 2023"
+  ]
+}

@@ -1,14 +1,6 @@
 {
     "status": "completed",
     "published": "January 2022 to December 2022",
-    "genres": [],
     "language": "English",
-    "authors":
-      [
-        ["DarkFlame", "story"],
-        ["DarkFlame", "illustation"],
-        // proof reader
-      ],
-
-    "synopsis": "All the monthly specials for 2022. (This does not include Lyra's Chronicles OR Velzea's Origin as it's a wider series... which was most of them)"
+    "synopsis": "All the monthly specials for 2022. (Some stories are missing where they have become part of a larger series.)"
 }

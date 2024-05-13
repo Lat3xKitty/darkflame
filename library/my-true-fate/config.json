@@ -2,7 +2,7 @@
   "title": "My True Fate",
   "bookType": "manga",
   "numVolumes": 14,
-  "fileExtension": ".png",
+  "fileExtension": ".webp",
   "japaneseOrder": true,
 
   "volumeNames": [
@@ -20,5 +20,7 @@
       "All Praise Clerys",
       "Clerys Paradise",
       "Her Legacy"
-  ]
+  ],
+
+  "volumeKey": "part"
 }

@@ -1,18 +1,25 @@
 {
     "title": "Monthly Specials 2021",
     "bookType": "manga",
-    "numVolumes": 9,
-    "fileExtension": ".png",
+    "numVolumes": 15,
+    "fileExtension": ".webp",
     "japaneseOrder": true,
 
     "volumeNames": [
-        "January 2021",
-        "Alice's First Victim",
+        "2K Milestone - MTF x TTIBAS",
+        "Succubus Corruption On This Perverted Masochist",
+        "わぶき's BAD ENDs - Slave Soldier Ending - 3D Remake",
+        "Alice's First Victim", 
+        "Jean/Laura Playtime [Commission]",
         "Haruka's Wedding",
-        "The Luminous crystals of Light",
-        "Shining Stars",
-        "Endless Dungeon",
-        "Eris Betrayal",
+        "Chris' Rebirth [Commission]",
+        "Maid Aki [Commission]",
+        "Endless Dungeon of Pleasure",
+        "Lily's New Ring",
+        "Eris' Betrayal",
+        "Fall of Inazuma",
+        "Yuuki's Horse Training",
+        "DarkFlame X RenaRaziel [Collab]",
         "The Latex Maiden"
     ]
   }
