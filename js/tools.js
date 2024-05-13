@@ -1,6 +1,6 @@
 "use strict";
 import * as CONSTANTS from './constants.js';
-import { getCookie } from './cookie.js';
+import { getCookie, setCookie } from './cookie.js';
 
 /* Returns the value of a given GET parameter name */
 export function findGetParameter(parameterName) {
@@ -56,7 +56,10 @@ export function assertsTitleExists(titles, title) {
 export function applyTheme() {
   const body = document.getElementsByTagName("body")[0];
   const cookieThemeSelection = parseInt(getCookie('themeSelection'));
-  const themeSelection = !isNaN(cookieThemeSelection) ? cookieThemeSelection : 0;
+  const themeSelection = !isNaN(cookieThemeSelection) ? cookieThemeSelection : (
+    // Media Query to detect dark mode
+    window.matchMedia('(prefers-color-scheme: dark)').matches ? 0 : 1
+   );
   const themeNames = ['darkTheme', 'lightTheme'];
   for (let i = 0; i < themeNames.length; i++) {
     body.classList.remove(themeNames[i]);
@@ -67,17 +70,22 @@ export function applyTheme() {
 export function writeBookInfo(bookInfo, languageData, bookInfoDiv) {
   if (bookInfo.status && languageData.titlePage.status[bookInfo.status]) {
     const status = document.createElement("p");
-    status.innerHTML = languageData.titlePage.status[bookInfo.status];
+    status.innerText = (
+      languageData.titlePage.status[bookInfo.status] +
+      (bookInfo.published
+      ? ' - ' + bookInfo.published
+      : '') 
+    );
     status.id = "status";
     bookInfoDiv.appendChild(status);
   }
 
-  if (bookInfo.genres) {
+  if (bookInfo.genres && bookInfo.genres.length > 0) {
     const genres = document.createElement("div");
     genres.id = "genres";
     bookInfo.genres.forEach((genre, index) => {
       const line = document.createElement("p");
-      line.innerHTML = genre;
+      line.innerText = genre;
       genres.appendChild(line);
     });
     bookInfoDiv.appendChild(genres);
@@ -85,7 +93,7 @@ export function writeBookInfo(bookInfo, languageData, bookInfoDiv) {
 
   if (bookInfo.language) {
     const status = document.createElement("p");
-    status.innerHTML = languageData.titlePage.language + languageData.ps + ": " + bookInfo.language;
+    status.innerText = languageData.titlePage.language + languageData.ps + ": " + bookInfo.language;
     status.id = "status";
     bookInfoDiv.appendChild(status);
   }
@@ -96,7 +104,7 @@ export function writeBookInfo(bookInfo, languageData, bookInfoDiv) {
     bookInfo.authors.forEach((author, index) => {
       if (languageData.titlePage.authors[author[0]]) {
         const line = document.createElement("p");
-        line.innerHTML = languageData.titlePage.authors[author[0]] + languageData.ps + ': ' + author[1];
+        line.innerText = languageData.titlePage.authors[author[0]] + languageData.ps + ': ' + author[1];
         authors.appendChild(line);
       }
     });
@@ -105,14 +113,14 @@ export function writeBookInfo(bookInfo, languageData, bookInfoDiv) {
 
   if (bookInfo.serialization) {
     const serialization = document.createElement("p");
-    serialization.innerHTML = languageData.titlePage.publication + languageData.ps + ": " + bookInfo.serialization;
+    serialization.innerText = languageData.titlePage.publication + languageData.ps + ": " + bookInfo.serialization;
     serialization.id = "serialization";
     bookInfoDiv.appendChild(serialization);
   }
 
   if (bookInfo.synopsis) {
     const synopsis = document.createElement("p");
-    synopsis.innerHTML = bookInfo.synopsis;
+    synopsis.innerText = bookInfo.synopsis;
     synopsis.id = "synopsis";
     bookInfoDiv.appendChild(synopsis);
   }
@@ -178,4 +186,40 @@ export function fetchVolume(libraryURL, title, volume) {
 export function fetchBookInfo(libraryURL, title) {
   return fetch(libraryURL + title + '/' + 'info.json')
     .then(response => response.json())
+}
+
+
+export function notSafeForWorkWarning(languageData) {
+  // Check if the user has already seen the warning (cookie, "nsfwWarningAccepted")
+  // Display a Warning that the content on the page is not safe for work
+
+  const cookieNSFW = getCookie('nsfwWarningAccepted');
+  if (cookieNSFW && cookieNSFW == 'true') {
+    return;
+  }
+
+  const body = document.getElementsByTagName("body")[0];
+  const warning = document.createElement("div");
+  warning.id = "nsfwWarning";
+  warning.innerHTML = `
+    <div>
+      <h1>${languageData.nsfwWarning.title}</h1>
+      <p>${languageData.nsfwWarning.desc}</p>
+      <button id="nsfwWarningButton">${languageData.nsfwWarning.accept}</button>
+      <button id="nsfwWarningButtonDecline">${languageData.nsfwWarning.deny}</button>
+    </div>
+  `;
+
+  body.appendChild(warning);
+
+  const acceptButton = document.getElementById("nsfwWarningButton");
+  acceptButton.addEventListener("click", () => {
+    setCookie('nsfwWarningAccepted', 'true', 365);
+    body.removeChild(warning);
+  });
+
+  const declineButton = document.getElementById("nsfwWarningButtonDecline");
+  declineButton.addEventListener("click", () => {
+    window.location.href = "https://www.google.com";
+  });
 }

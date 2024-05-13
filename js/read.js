@@ -1,7 +1,7 @@
 "use strict";
 import { zoom } from './directive.js';
 import * as CONSTANTS from './constants.js';
-import { findGetParameter, stringToBoolean, fetchLanguages, infoToPageURL, infoToImageURL, assertsTitleExists, chooseLanguage, fetchLanguage, fetchLibrary, fetchBook, fetchVolume } from './tools.js';
+import { findGetParameter, stringToBoolean, fetchLanguages, infoToPageURL, infoToImageURL, assertsTitleExists, chooseLanguage, fetchLanguage, fetchLibrary, fetchBook, fetchVolume, notSafeForWorkWarning } from './tools.js';
 import { setCookie, getCookie, getPosCookie, setPosCookie } from './cookie.js';
 
 function getChapterCount() {
@@ -353,8 +353,8 @@ function refreshDisplayPages() {
   {
     pageSlider.max = VCONFIG.numPages;
     pageSlider.value = PAGE.toString();
-    pageSliderCurrent.innerHTML = PAGE.toString();
-    pageSliderTotal.innerHTML = VCONFIG.numPages;
+    pageSliderCurrent.innerText = PAGE.toString();
+    pageSliderTotal.innerText = VCONFIG.numPages;
   }
 
 
@@ -387,7 +387,19 @@ function refreshDisplayPages() {
     volumeName = TCONFIG.volumeNames[VOLUME - 1];
   }
 
-  bookVolume.innerHTML = LCONFIG.titlePage.volume + " " + VOLUME + (volumeName ? ': ' + volumeName : '');
+  var volumePrefix = LCONFIG.titlePage.chapterLabel['chapter'] + ' ' + VOLUME;
+  if (TCONFIG.volumeKey && LCONFIG.titlePage.chapterLabel[TCONFIG.volumeKey]) {
+    volumePrefix = LCONFIG.titlePage.chapterLabel[TCONFIG.volumeKey] + ' ' + VOLUME;
+  }
+  else if (TCONFIG.volumeKey && TCONFIG.volumeKey === "none") {
+    volumePrefix = '';
+  }
+
+  bookVolume.innerText = volumePrefix +
+  (volumeName
+    ? (TCONFIG.volumeKey !== "none" ? ": " : "") +
+      volumeName
+    : "");
 }
 
 
@@ -479,6 +491,57 @@ function setHandlers() {
       refreshLayoutNavImage();
     }
 
+    document.getElementById("navImageContainer").addEventListener('swiped-left', function() {
+      // Check if zoom is active and ignore the swipe
+      const image = document.getElementsByClassName("zoom")[0];
+      if (image.classList.contains("active")) return;
+
+      // If the book is in japanese order, the swipe left should go to the next page
+      if (TCONFIG.japaneseOrder) {
+        goPreviousPage();
+      } else {
+        goNextPage();
+      }
+    });
+
+    document.getElementById("navImageContainer").addEventListener('swiped-right', function() {
+      // Check if zoom is active and ignore the swipe
+      const image = document.getElementsByClassName("zoom")[0];
+      if (image.classList.contains("active")) return;
+
+      // If the book is in japanese order, the swipe right should go to the previous page
+      if (TCONFIG.japaneseOrder) {
+        goNextPage();
+      } else {
+        goPreviousPage();
+      }
+    });
+
+    let idleMouseTimer;
+    let forceMouseHide = false;
+  
+    document.body.style.cursor = "none";
+  
+    // Your wrapper here
+    document.body.addEventListener("mousemove", () => {
+      if (forceMouseHide) {
+        return;
+      }
+  
+      document.body.style.cursor = "";
+  
+      clearTimeout(idleMouseTimer);
+  
+      idleMouseTimer = setTimeout(() => {
+        document.body.style.cursor = "none";
+  
+        forceMouseHide = true;
+  
+        setTimeout(() => {
+          forceMouseHide = false;
+        }, 2000);
+      }, 1000);
+    });
 
   /* -------------------------- FOR CONTINUOUS SCROLLING MODE ONLY ------------------------------------*/
   } else {
@@ -600,8 +663,12 @@ function setHandlers() {
 
   if (VCONFIG.disallowDoublePage) doublePageButton.style.display = "none";
 
+  const titleLink = document.createElement("a");
+  titleLink.innerText = TCONFIG.title;
+  titleLink.href = infoToPageURL(LIBRARY, TITLE);
+
   // Refresh the book info at the top
-  bookTitle.innerHTML = TCONFIG.title;
+  bookTitle.appendChild(titleLink);
 
   // Hide the select chapter menu if there is just one chapter
   if (getChapterCount() < 2) {
@@ -655,7 +722,7 @@ function applyLanguage() {
   /* Localize all the options in the config menu */
   for (let key in LCONFIG.readPage.configMenu) {
     if (typeof LCONFIG.readPage.configMenu[key] === 'string') {
-      document.getElementById(key).getElementsByTagName('p')[0].innerHTML = LCONFIG.readPage.configMenu[key];
+      document.getElementById(key).getElementsByTagName('p')[0].innerText = LCONFIG.readPage.configMenu[key];
     }
   }
 
@@ -681,12 +748,18 @@ function applyLanguage() {
   chapterSelection.selectedIndex = currentChapterSelection;
 
   // Refresh the book info at the top
-  bookVolume.innerHTML = LCONFIG.titlePage.volume + " " + VOLUME;
+  bookVolume.innerText = LCONFIG.titlePage.volume + " " + VOLUME;
 }
 
 function applyCookie() {
 
-  themeSelection.selectedIndex = parseInt(getCookie('themeSelection') || 0);
+  themeSelection.selectedIndex = (
+   parseInt(getCookie('themeSelection')) || 
+   (
+    // Media Query to detect dark mode
+    window.matchMedia('(prefers-color-scheme: dark)').matches ? 0 : 1
+   )
+  );
   themeSelection.onchange();
 
   let defaultWidthSlider;
@@ -697,7 +770,7 @@ function applyCookie() {
       defaultWidthSlider = 40;
     }
   } else {
-    defaultWidthSlider = 90;
+    defaultWidthSlider = 100;
   }
   pageWidthSlider.value = parseInt(getCookie('pageWidthSlider') || defaultWidthSlider);
   pageWidthSlider.oninput();
@@ -855,6 +928,7 @@ fetchLanguages()
   .then(language => UCONFIG.lang = language)
   .then(() => fetchLanguage(UCONFIG.lang))
   .then(languageData => LCONFIG = languageData)
+  .then(() => notSafeForWorkWarning(LCONFIG))
   .then(() => fetchLibrary(LIBRARY))
   .then(libraryData => assertsTitleExists(libraryData.titles, TITLE))
   .then(() => fetchBook(LIBRARY, TITLE))

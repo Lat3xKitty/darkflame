@@ -9,6 +9,8 @@
   --paddingWidth: 3vw;
   --gridGapWidth: 1.5vw;
   padding: var(--paddingWidth);
+
+  position: relative;
 }
 
 #bookInfo {
@@ -91,6 +93,10 @@
   height: 100%;
   object-fit: cover;
   aspect-ratio: 16/9;
+}
+
+#volumes.the-light-in-the-dark > a > img {
+  aspect-ratio: 41/64;
 }
 
 body {

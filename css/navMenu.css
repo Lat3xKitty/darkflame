@@ -110,6 +110,10 @@
   margin-bottom: -0.2em;
 }
 
+#bookInfo > #bookTitle > a {
+  color: inherit
+}
+
 #bookInfo > #bookVolume {
   font-weight: normal;
   font-size: 90%;

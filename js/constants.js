@@ -4,26 +4,30 @@
 */
 const port = 5500;
 
+const isTestURL = (
+    window.location.hostname == "localhost" ||
+    window.location.hostname === "127.0.0.1" ||
+    window.location.hostname === "192.168.0.136"
+);
+const defaultHostName = "lat3xkitty.com/darkflame";
+
 export function homeURL() {
-    // If Localhost, convert to localhost
-    if (window.location.hostname == "localhost" || window.location.hostname === "127.0.0.1" || window.location.hostname === "192.168.0.136") {
+    if (isTestURL) {
         return `http://${window.location.hostname}:${port}/`;
     }
-    return "https://lat3xkitty.com/darkflame/";
+    return `https://${defaultHostName}/`;
 }
 export function readerURL() {
-    // If Localhost, convert to localhost
-    if (window.location.hostname == "localhost" || window.location.hostname === "127.0.0.1" || window.location.hostname === "192.168.0.136") {
+    if (isTestURL) {
         return `http://${window.location.hostname}:${port}/read.html`;
     }
-    return "https://lat3xkitty.com/darkflame/read";
+    return `https://${defaultHostName}/read`;
 }
 export function booksURL() {
-    // If Localhost, convert to localhost
-    if (window.location.hostname == "localhost" || window.location.hostname === "127.0.0.1" || window.location.hostname === "192.168.0.136") {
+    if (isTestURL) {
         return `http://${window.location.hostname}:${port}/library/`;
     }
-    return "https://lat3xkitty.com/darkflame/library/";
+    return `https://${defaultHostName}/library/`;
 }
 export function websiteName() {
     return "DarkFlame Universe";

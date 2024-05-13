@@ -2,6 +2,8 @@
   --paddingWidth: 3vw;
   --gridGapWidth: 1.5vw;
   padding: var(--paddingWidth);
+
+  position: relative;
 }
 
 #container > h2 {

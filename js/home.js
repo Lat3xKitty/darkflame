@@ -1,13 +1,13 @@
 "use strict";
 import * as CONSTANTS from './constants.js';
-import { findGetParameter, applyTheme, infoToPageURL, infoToImageURL, chooseAndFetchLanguage, fetchBook, fetchLibrary } from './tools.js';
+import { findGetParameter, applyTheme, infoToPageURL, infoToImageURL, chooseAndFetchLanguage, fetchBook, fetchLibrary, notSafeForWorkWarning } from './tools.js';
 
 const libraryParam = findGetParameter('library');
 const LIBRARY = libraryParam ? libraryParam : CONSTANTS.booksURL();
 
 function applyLanguage(languageData) {
     document.title = CONSTANTS.websiteName() + ' - ' + languageData.homePage.home;
-    document.getElementById("availableBooks").innerHTML = languageData.homePage.availableBooks;
+    document.getElementById("availableBooks").innerText = languageData.homePage.availableBooks;
 }
 
 function displayBook(bookData, title, index) {
@@ -17,7 +17,7 @@ function displayBook(bookData, title, index) {
 
   link.href = infoToPageURL(LIBRARY, title);
   link.setAttribute('index', index);
-  p.innerHTML = bookData.title;
+  p.innerText = bookData.title;
   cover.src = infoToImageURL(LIBRARY, title, 1, 1, bookData.fileExtension);
 
   link.appendChild(p);
@@ -26,8 +26,12 @@ function displayBook(bookData, title, index) {
   document.getElementById("books").appendChild(link);
 }
 
+let LCONFIG = null;
+
 chooseAndFetchLanguage()
-  .then(languageData => applyLanguage(languageData))
+  .then(languageData => LCONFIG = languageData)
+  .then(() => applyLanguage(LCONFIG))
+  .then(() => notSafeForWorkWarning(LCONFIG))
   .then(applyTheme)
 
   .then(() => fetchLibrary(LIBRARY))

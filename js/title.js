@@ -1,6 +1,6 @@
 "use strict";
 import * as CONSTANTS from './constants.js';
-import { findGetParameter, applyTheme, infoToImageURL, infoToPageURL, writeBookInfo, fetchBookInfo, assertsTitleExists, chooseAndFetchLanguage, fetchLibrary, fetchBook } from './tools.js';
+import { findGetParameter, applyTheme, infoToImageURL, infoToPageURL, writeBookInfo, fetchBookInfo, assertsTitleExists, chooseAndFetchLanguage, fetchLibrary, fetchBook, notSafeForWorkWarning } from './tools.js';
 
 function displayBookData(bookData) {
   // Change the title of the webpage
@@ -8,7 +8,7 @@ function displayBookData(bookData) {
 
   const bookTitle = document.createElement("h2");
   const bookInfoDiv = document.getElementById("bookInfo")
-  bookTitle.innerHTML = bookData.title;
+  bookTitle.innerText = bookData.title;
   bookInfoDiv.appendChild(bookTitle);
 
   fetchBookInfo(LIBRARY, TITLE)
@@ -20,20 +20,28 @@ function displayBookData(bookData) {
     const cover = document.createElement("img");
 
     link.href = infoToPageURL(LIBRARY, TITLE, i);
-    if (bookData.numVolumes > 1) {
+    if (bookData.numVolumes > 0) {
       var volumeName = null;
       if (bookData.volumeNames && bookData.volumeNames[i - 1]) {
         volumeName = bookData.volumeNames[i - 1];
       }
-      var volumePrefix = LCONFIG.titlePage.chapterLabel['chapter'];
+      var volumePrefix = LCONFIG.titlePage.chapterLabel['chapter'] + ' ' + i;
       if (bookData.volumeKey && LCONFIG.titlePage.chapterLabel[bookData.volumeKey]) {
-        volumePrefix = LCONFIG.titlePage.chapterLabel[bookData.volumeKey];
+        volumePrefix = LCONFIG.titlePage.chapterLabel[bookData.volumeKey] + ' ' + i;
       }
-
-      p.innerHTML = volumePrefix + ' ' + i + (volumeName ? ': ' + volumeName : '');
+      else if (bookData.volumeKey && bookData.volumeKey === "none") {
+        volumePrefix = '';
+      }
+  
+      p.innerText =
+        volumePrefix +
+        (volumeName
+          ? (bookData.volumeKey !== "none" ? ": " : "") +
+            volumeName
+          : "");
     }
     cover.src = infoToImageURL(LIBRARY, TITLE, i, 1, bookData.fileExtension);
-
+  
     link.appendChild(p);
     link.appendChild(cover);
     document.getElementById("volumes").appendChild(link);
@@ -48,8 +56,10 @@ const TITLE = findGetParameter('title');
 
 chooseAndFetchLanguage()
   .then(languageData => LCONFIG = languageData)
+  .then(() => notSafeForWorkWarning(LCONFIG))
   .then(() => fetchLibrary(LIBRARY))
   .then(libraryData => assertsTitleExists(libraryData.titles, TITLE))
+  .then(() => document.getElementById("volumes").classList.add(TITLE))
   .then(applyTheme)
   .then(() => fetchBook(LIBRARY, TITLE))
   .then(bookData => displayBookData(bookData));

@@ -8,21 +8,33 @@ body, select, option {
 }
 
 body.darkTheme {
-  --background-gradient: linear-gradient(0deg, rgb(34, 34, 34) 0%, rgb(73, 0, 0) 100%);
+  --background-gradient: linear-gradient(0deg, rgb(73, 0, 0) 0%, rgb(40, 0, 40) 30%, rgb(30, 30, 30) 100%);
   --menu-background-color: rgb(30, 30, 30);
   --menu-text-color: white;
-  --menu-slider-color: lightgrey
+  --menu-slider-color: lightgrey;
+
+  --menu-link-color: rgb(255, 180, 255);
 }
 
 body.manga.darkTheme {
   --background-gradient: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%);
 }
 
+body.darkTheme .nav-icon {
+  fill: rgb(255, 255, 255);
+}
+
 body.lightTheme {
-  --background-gradient: linear-gradient(0deg, rgb(197 197 197) 0%, rgb(255, 190, 190) 100%);
+  --background-gradient: linear-gradient(0deg, rgb(190, 143, 175) 0%, rgb(255, 190, 190) 100%);
   --menu-background-color: rgb(220, 220, 220);
   --menu-text-color: black;
-  --menu-slider-color: darkgrey
+  --menu-slider-color: darkgrey;
+
+  --menu-link-color: rgb(56, 0, 56);
+}
+
+body.lightTheme .nav-icon {
+  fill: black;
 }
 
 /* Improve reading of stories while landscape on Light theme */
@@ -30,6 +42,43 @@ body.lightTheme {
   body.manga.lightTheme {
     --background-gradient: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(0, 0, 0) 100%);
   }
+}
+
+/* Make div.details and div.links 50/50 until on a 768px screen */
+#footer {
+  padding: 0 1em;
+}
+
+/* Make div.details and div.links 50/50 until on a 768px screen
+    and then make div.details 100% and div.links 100% */
+@media screen and (max-width: 768px) {
+  #footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    text-align: center;
+  }
+}
+
+#footer > div.links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75em 2em;
+
+  flex-wrap: wrap;
+}
+
+#footer a {
+  align-items: center;
+  text-decoration: none;
+  color: var(--menu-link-color);
+}
+#footer a:hover {
+  text-decoration: underline;
+}
+#footer a:visited, #footer a:active {
+  color: var(--menu-link-color);
 }
 
 body {
@@ -43,3 +92,73 @@ body {
 @media screen and (max-width: 140vh) {#books, #volumes {--numberBook: 3;}}
 @media screen and (max-width: 120vh) {#books, #volumes {--numberBook: 2;}}
 @media screen and (max-width: 90vh)  {#books, #volumes {--numberBook: 1;}}
+
+.nav-icon {
+  width: 48px;
+  height: 48px;
+}
+
+#home {
+  position: absolute;
+  top: var(--paddingWidth);
+  right: var(--paddingWidth);
+}
+
+#nsfwWarning {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  z-index: 100000;
+}
+
+#nsfwWarning::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  backdrop-filter: blur(20px);
+}
+
+#nsfwWarning > div {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  place-content: center;
+  
+  text-align: center;
+}
+
+#nsfwWarning > div > * {
+  color: var(--menu-text-color);
+  z-index: 1;
+}
+
+#nsfwWarning > div > button {
+  padding: 0.5em 1em 0.5em 1em;
+  border-radius: 10em;
+  border:none;
+  display: inline-block;
+  margin: 0 .5em .5em 0;
+  font-size : 1em;
+}
+
+#nsfwWarning > div >  #nsfwWarningButton {
+  background:rgb(0, 73, 0);
+  color: white;
+
+  font-size : 1.2em;
+}
+
+#nsfwWarning > div >  #nsfwWarningButtonDecline {
+  background:rgb(73, 0, 0);
+  color: white;
+}

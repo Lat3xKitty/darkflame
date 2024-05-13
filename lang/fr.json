@@ -5,7 +5,7 @@
   "homePage":
   {
     "home": "Accueil",
-    "availableBooks": "Livres disponibles"
+    "availableBooks": "Histoires disponibles"
   },
 
   "titlePage":
@@ -52,7 +52,13 @@
         "lightTheme": "Thème lumineux"
       }
     }
+  },
 
+  "nsfwWarning":
+  {
+    "title": "Warning - This website contains mature content!",
+    "desc": "This websites contains content that may not be suitable for all audiences.<br/>You must be 18+ to view this content.<br/><b>Are you of legal age to view this content?</b>",
+    "accept": "Accept",
+    "deny": "Deny"
   }
-
 }
