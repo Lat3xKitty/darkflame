@@ -30,6 +30,8 @@
 
 #configMenu.enabled {
   transform: translateX(0);
+  /* Fixes issues on mobile for not scrolling */
+  overflow-y: auto;
 }
 
 #configMenu > div > .icon {

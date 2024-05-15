@@ -7,7 +7,8 @@ const port = 5500;
 const isTestURL = (
     window.location.hostname == "localhost" ||
     window.location.hostname === "127.0.0.1" ||
-    window.location.hostname === "192.168.0.136"
+    window.location.hostname === "192.168.0.136" ||
+    window.location.hostname === "192.168.1.146"
 );
 const defaultHostName = "lat3xkitty.com/darkflame";
 

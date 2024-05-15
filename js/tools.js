@@ -169,7 +169,13 @@ export function fetchLanguage(languageName) {
 }
 
 export function fetchLibrary(libraryURL) {
-  return fetch(libraryURL + 'config.json')
+  let configUrl = libraryURL + 'config.json';
+
+  if (localStorage.getItem('libraryConfig')) {
+    configUrl = libraryURL + localStorage.getItem('libraryConfig');
+  }
+
+  return fetch(configUrl)
     .then(response => response.json());
 }
 

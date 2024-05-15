@@ -50,6 +50,12 @@
       {
         "darkTheme": "Ciemny motyw",
         "lightTheme": "Jasny motyw"
+      },
+      "readingDirection":
+      {
+        "original": "Original order",
+        "ltr": "Left to right",
+        "rtl": "Right to left"
       }
     }
   },

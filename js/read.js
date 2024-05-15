@@ -407,6 +407,9 @@ function refreshDisplayPages() {
 
 
 function setHandlers() {
+  // Hack to allow the user to switch direction of the pages
+
+
   /* EVENTS HANDLERS */
 
   /* -------------------------- FOR BOOK MODE ONLY (NOT CONTINUOUS SCROLLING) ------------------------------------*/
@@ -640,6 +643,14 @@ function setHandlers() {
     .then(applyLanguage);
   }
 
+  readingDirectionSelection.onchange = function() {
+    // Save value to cookie
+    UCONFIG.readingDirection = readingDirectionSelection.selectedIndex;
+    document.activeElement.blur(); // Remove focus
+
+    window.location.reload();
+  }
+
   toggleHandlerElement("configButton", "configOpened", ["configMenu"], ["enabled"]);
 
   document.getElementById("closeMenu").onclick = function() {
@@ -747,6 +758,16 @@ function applyLanguage() {
   }
   chapterSelection.selectedIndex = currentChapterSelection;
 
+  const currentReadingDirection = readingDirectionSelection.selectedIndex;
+  readingDirectionSelection.innerHTML = "";
+  for (let key in LCONFIG.readPage.configMenu.readingDirection) {
+    const option = document.createElement("option");
+    option.text = LCONFIG.readPage.configMenu.readingDirection[key];
+    option.value = key;
+    readingDirectionSelection.appendChild(option);
+  }
+  readingDirectionSelection.selectedIndex = currentReadingDirection;
+
   // Refresh the book info at the top
   bookVolume.innerText = LCONFIG.titlePage.volume + " " + VOLUME;
 }
@@ -761,6 +782,10 @@ function applyCookie() {
    )
   );
   themeSelection.onchange();
+
+  readingDirectionSelection.selectedIndex = (
+   getCookie('readingDirection') || 'original'
+  );
 
   let defaultWidthSlider;
   if (TCONFIG.bookType === 'webtoon') {
@@ -894,6 +919,7 @@ const doublePageButton = document.getElementById("doublePageButton");
 
 const themeSelection = document.getElementById("themeSelection");
 const languageSelection = document.getElementById("languageSelection");
+const readingDirectionSelection = document.getElementById("readingDirectionSelection");
 const chapterSelection = document.getElementById("chapterSelection");
 const pageSlider = document.getElementById("pageSlider");
 const pageWidthSlider = document.getElementById("pageWidthSlider");
@@ -928,11 +954,24 @@ fetchLanguages()
   .then(language => UCONFIG.lang = language)
   .then(() => fetchLanguage(UCONFIG.lang))
   .then(languageData => LCONFIG = languageData)
+  .then(() => {
+    // Get the Language reading direction and set it in UCONFIG early
+    UCONFIG.preferedReadingDirection = (
+      parseInt(getCookie('readingDirection')) || 0
+    );
+  })
   .then(() => notSafeForWorkWarning(LCONFIG))
   .then(() => fetchLibrary(LIBRARY))
   .then(libraryData => assertsTitleExists(libraryData.titles, TITLE))
   .then(() => fetchBook(LIBRARY, TITLE))
-  .then(bookData => TCONFIG = bookData)
+  .then(bookData => {
+    TCONFIG = bookData
+
+    // Overwrite the preferedReadingDirection if the user has a preference
+    if (UCONFIG.preferedReadingDirection != 0) {
+      TCONFIG.japaneseOrder = UCONFIG.preferedReadingDirection === 2;
+    }
+  })
   .then(setBookTypeConfig)
   .then(getDOMElements)
   .then(() => fetchVolume(LIBRARY, TITLE, VOLUME))

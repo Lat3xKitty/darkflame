@@ -10,7 +10,10 @@ function applyLanguage(languageData) {
     document.getElementById("availableBooks").innerText = languageData.homePage.availableBooks;
 }
 
-function displayBook(bookData, title, index) {
+
+function displayBook(bookData, title, index, isDividor) {
+  isDividor = isDividor || false;
+  
   const link = document.createElement("a");
   const p = document.createElement("p");
   const cover = document.createElement("img");
@@ -22,6 +25,10 @@ function displayBook(bookData, title, index) {
 
   link.appendChild(p);
   link.appendChild(cover);
+
+  if (isDividor) {
+    link.style.gridColumnStart = 1;
+  }
 
   document.getElementById("books").appendChild(link);
 }
@@ -37,10 +44,16 @@ chooseAndFetchLanguage()
   .then(() => fetchLibrary(LIBRARY))
   .then(libraryData => {
     const promiseList = [];
+
+    var divNext = [];
     libraryData.titles.forEach((title, index) => {
+      if (title === "DIVIDOR") {
+        divNext.push(index + 1)
+        return;
+      }
       promiseList.push(
         fetchBook(LIBRARY, title)
-          .then(bookData => displayBook(bookData, title, index))
+          .then(bookData => displayBook(bookData, title, index, divNext.includes(index)))
       );
     })
 
