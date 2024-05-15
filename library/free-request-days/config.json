@@ -3,7 +3,7 @@
   "bookType": "manga",
   "numVolumes": 4,
   "fileExtension": ".webp",
-  "japaneseOrder": true,
+  "japaneseOrder": false,
 
   "volumeNames": [
     "March 2022",

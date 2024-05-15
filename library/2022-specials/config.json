@@ -3,7 +3,7 @@
     "bookType": "manga",
     "numVolumes": 15,
     "fileExtension": ".webp",
-    "japaneseOrder": true,
+    "japaneseOrder": false,
 
     "volumeNames": [
         "Blue Monday",

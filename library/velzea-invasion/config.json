@@ -3,7 +3,7 @@
     "bookType": "manga",
     "numVolumes": 7,
     "fileExtension": ".webp",
-    "japaneseOrder": true,
+    "japaneseOrder": false,
 
     "volumeNames": [
         "S1 E1 - The fall of the Luminous Crystals ",

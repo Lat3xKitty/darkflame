@@ -3,7 +3,7 @@
     "bookType": "manga",
     "numVolumes": 6,
     "fileExtension": ".webp",
-    "japaneseOrder": true,
+    "japaneseOrder": false,
 
     "volumeNames": [
       "The Other Me",
